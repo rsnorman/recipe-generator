@@ -1,19 +1,20 @@
 import React from "react";
-import { render, screen } from "@testing-library/react-native";
+import { render } from "@testing-library/react-native";
 import Index from "./index";
 
-describe("Index Screen", () => {
-  it("renders the welcome text", () => {
-    render(<Index />);
+// Mock expo-router Redirect component
+jest.mock("expo-router", () => {
+  const { Text } = jest.requireActual("react-native");
+  return {
+    Redirect: ({ href }: { href: string }) => <Text testID="redirect">{href}</Text>,
+  };
+});
 
-    const welcomeText = screen.getByText("Edit app/index.tsx to edit this screen.");
-    expect(welcomeText).toBeTruthy();
-  });
+describe("Index (Root)", () => {
+  it("should redirect to tabs", () => {
+    const { getByTestId } = render(<Index />);
+    const redirect = getByTestId("redirect");
 
-  it("renders a centered view", () => {
-    const { getByText } = render(<Index />);
-    const textElement = getByText("Edit app/index.tsx to edit this screen.");
-
-    expect(textElement).toBeTruthy();
+    expect(redirect.props.children).toBe("/(tabs)");
   });
 });
