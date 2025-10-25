@@ -1,19 +1,26 @@
 import React from "react";
-import { render, screen } from "@testing-library/react-native";
+import { render, screen, waitFor } from "@testing-library/react-native";
 import Index from "./index";
 
-describe("Index Screen", () => {
-  it("renders the welcome text", () => {
+// Mock the mockData service
+jest.mock("@/app/services/mockData", () => ({
+  getRecentSauces: jest.fn(() => Promise.resolve([])),
+}));
+
+describe("Home Screen", () => {
+  it("renders the header component", async () => {
     render(<Index />);
 
-    const welcomeText = screen.getByText("Edit app/index.tsx to edit this screen.");
-    expect(welcomeText).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText("HotSauce AI")).toBeTruthy();
+    });
   });
 
-  it("renders a centered view", () => {
-    const { getByText } = render(<Index />);
-    const textElement = getByText("Edit app/index.tsx to edit this screen.");
+  it("renders the photo CTA card", async () => {
+    render(<Index />);
 
-    expect(textElement).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText("Take a Photo")).toBeTruthy();
+    });
   });
 });

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Fire Fang",
+    "heatLevel": 3,
+    "imageUrl": "https://images.unsplash.com/photo-1598027737393-d5fc5ab87b27?w=400"
+  },
+  {
+    "id": "2",
+    "name": "Inferno Blast",
+    "heatLevel": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1567699518225-f19d6834d0d1?w=400"
+  },
+  {
+    "id": "3",
+    "name": "Mild Morning",
+    "heatLevel": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1606476555262-f75e5f4ab1e8?w=400"
+  },
+  {
+    "id": "4",
+    "name": "Smoky Dragon",
+    "heatLevel": 4,
+    "imageUrl": "https://images.unsplash.com/photo-1622895928062-e1e60628a3d9?w=400"
+  },
+  {
+    "id": "5",
+    "name": "Sweet Heat",
+    "heatLevel": 2,
+    "imageUrl": "https://images.unsplash.com/photo-1623419046296-f22ae5d29811?w=400"
+  }
+]
