@@ -6,15 +6,7 @@ describe("RecentSaucesEmptyState", () => {
   it("should render empty state message", () => {
     render(<RecentSaucesEmptyState />);
 
-    expect(
-      screen.getByText("Your recent sauces will appear here once you start scanning")
-    ).toBeTruthy();
-  });
-
-  it("should render bottle icon", () => {
-    render(<RecentSaucesEmptyState />);
-
-    expect(screen.getByTestId("bottle-icon")).toBeTruthy();
+    expect(screen.getByText("Your recent sauces will appear here")).toBeTruthy();
   });
 
   it("should have accessible container", () => {

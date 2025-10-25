@@ -28,9 +28,7 @@ describe("RecentSaucesGrid", () => {
   it("should render empty state when sauces array is empty", () => {
     render(<RecentSaucesGrid sauces={[]} onSaucePress={jest.fn()} />);
 
-    expect(
-      screen.getByText("Your recent sauces will appear here once you start scanning")
-    ).toBeTruthy();
+    expect(screen.getByText("Your recent sauces will appear here")).toBeTruthy();
   });
 
   it("should render sauces when array has items", () => {

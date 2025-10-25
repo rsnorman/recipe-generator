@@ -1,26 +1,20 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react-native";
+import { render } from "@testing-library/react-native";
 import Index from "./index";
 
-// Mock the mockData service
-jest.mock("@/app/services/mockData", () => ({
-  getRecentSauces: jest.fn(() => Promise.resolve([])),
-}));
+// Mock expo-router Redirect component
+jest.mock("expo-router", () => {
+  const { Text } = jest.requireActual("react-native");
+  return {
+    Redirect: ({ href }: { href: string }) => <Text testID="redirect">{href}</Text>,
+  };
+});
 
-describe("Home Screen", () => {
-  it("renders the header component", async () => {
-    render(<Index />);
+describe("Index (Root)", () => {
+  it("should redirect to tabs", () => {
+    const { getByTestId } = render(<Index />);
+    const redirect = getByTestId("redirect");
 
-    await waitFor(() => {
-      expect(screen.getByText("HotSauce AI")).toBeTruthy();
-    });
-  });
-
-  it("renders the photo CTA card", async () => {
-    render(<Index />);
-
-    await waitFor(() => {
-      expect(screen.getByText("Take a Photo")).toBeTruthy();
-    });
+    expect(redirect.props.children).toBe("/(tabs)");
   });
 });

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Alert } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "@/app/components/home/Header";
+import { ScrollView, StyleSheet, Alert, View } from "react-native";
 import PhotoCTACard from "@/app/components/home/PhotoCTACard";
 import RecentSaucesGrid from "@/app/components/home/RecentSaucesGrid";
 import { getRecentSauces } from "@/app/services/mockData";
@@ -32,13 +30,8 @@ export default function HomeScreen(): React.JSX.Element {
     Alert.alert("Sauce Details", `Viewing ${sauce.name}`);
   };
 
-  const handleProfilePress = (): void => {
-    Alert.alert("Profile", "Profile screen coming soon!");
-  };
-
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
-      <Header onProfilePress={handleProfilePress} />
+    <View style={styles.container}>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -47,7 +40,7 @@ export default function HomeScreen(): React.JSX.Element {
         <PhotoCTACard onTakePhotoPress={handleTakePhoto} onUploadPress={handleUpload} />
         <RecentSaucesGrid sauces={sauces} onSaucePress={handleSaucePress} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

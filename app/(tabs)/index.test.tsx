@@ -32,16 +32,6 @@ describe("HomeScreen", () => {
   });
 
   describe("Component Rendering", () => {
-    it("should render Header component", async () => {
-      (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
-
-      render(<HomeScreen />);
-
-      await waitFor(() => {
-        expect(screen.getByText("HotSauce AI")).toBeTruthy();
-      });
-    });
-
     it("should render PhotoCTACard component", async () => {
       (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
 
@@ -80,9 +70,7 @@ describe("HomeScreen", () => {
       render(<HomeScreen />);
 
       await waitFor(() => {
-        expect(
-          screen.getByText("Your recent sauces will appear here once you start scanning")
-        ).toBeTruthy();
+        expect(screen.getByText("Your recent sauces will appear here")).toBeTruthy();
       });
     });
 
@@ -145,21 +133,6 @@ describe("HomeScreen", () => {
       fireEvent.press(sauceCards[0]);
 
       expect(Alert.alert).toHaveBeenCalledWith("Sauce Details", "Viewing Fire Fang");
-    });
-
-    it("should handle profile button press", async () => {
-      (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
-
-      render(<HomeScreen />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId("profile-button")).toBeTruthy();
-      });
-
-      const profileButton = screen.getByTestId("profile-button");
-      fireEvent.press(profileButton);
-
-      expect(Alert.alert).toHaveBeenCalledWith("Profile", "Profile screen coming soon!");
     });
   });
 });

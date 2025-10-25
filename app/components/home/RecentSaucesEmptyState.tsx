@@ -1,7 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { COLORS, SPACING, TYPOGRAPHY } from "@/app/constants/theme";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function RecentSaucesEmptyState(): React.JSX.Element {
   return (
@@ -10,10 +9,7 @@ export default function RecentSaucesEmptyState(): React.JSX.Element {
       accessibilityLabel="No sauces scanned yet. Take a photo to get started."
       testID="empty-state"
     >
-      <Ionicons name="flask-outline" size={64} color={COLORS.textTertiary} testID="bottle-icon" />
-      <Text style={styles.message}>
-        Your recent sauces will appear here once you start scanning
-      </Text>
+      <Text style={styles.message}>Your recent sauces will appear here</Text>
     </View>
   );
 }

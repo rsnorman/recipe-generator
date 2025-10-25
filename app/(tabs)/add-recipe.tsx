@@ -3,16 +3,16 @@ import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS, SPACING, TYPOGRAPHY } from "@/app/constants/theme";
 
-export default function ProfileScreen(): React.JSX.Element {
+export default function AddRecipeScreen(): React.JSX.Element {
   return (
-    <View style={styles.container} testID="profile-container">
+    <View style={styles.container} testID="add-recipe-container">
       <Ionicons
-        name="person-circle-outline"
+        name="camera-outline"
         size={80}
         color={COLORS.textTertiary}
-        testID="profile-icon"
+        testID="add-recipe-icon"
       />
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Add Recipe</Text>
       <Text style={styles.subtitle}>Coming soon!</Text>
     </View>
   );

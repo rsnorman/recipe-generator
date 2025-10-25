@@ -1,12 +1,12 @@
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react-native";
 import Header from "./Header";
 
 describe("Header", () => {
-  it('should render "HotSauce AI" title', () => {
+  it('should render "SauceSnap" title', () => {
     render(<Header onProfilePress={jest.fn()} />);
 
-    expect(screen.getByText("HotSauce AI")).toBeTruthy();
+    expect(screen.getByText("SauceSnap")).toBeTruthy();
   });
 
   it("should render flame icon", () => {

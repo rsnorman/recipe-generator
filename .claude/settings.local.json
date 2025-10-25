@@ -14,7 +14,8 @@
       "Bash(source $CLAUDE_DIR:-$HOME/.claude/scripts/utils/git-utils.sh)",
       "Bash(is_on_main_branch)",
       "Bash(npm run lint:fix:*)",
-      "Bash(npx expo install:*)"
+      "Bash(npx expo install:*)",
+      "Bash(gh pr create:*)"
     ],
     "deny": [],
     "ask": []
