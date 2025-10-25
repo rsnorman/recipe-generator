@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
+import React from "react";
 
-export default function Index() {
+export default function Index(): React.JSX.Element {
   return (
     <View
       style={{
