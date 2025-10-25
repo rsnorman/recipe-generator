@@ -3,16 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS, SPACING, TYPOGRAPHY } from "@/app/constants/theme";
 
-export default function AddRecipeScreen(): React.JSX.Element {
+export default function CameraScreen(): React.JSX.Element {
   return (
-    <View style={styles.container} testID="add-recipe-container">
-      <Ionicons
-        name="camera-outline"
-        size={80}
-        color={COLORS.textTertiary}
-        testID="add-recipe-icon"
-      />
-      <Text style={styles.title}>Add Recipe</Text>
+    <View style={styles.container} testID="camera-container">
+      <Ionicons name="camera-outline" size={80} color={COLORS.textTertiary} testID="camera-icon" />
+      <Text style={styles.title}>Camera</Text>
       <Text style={styles.subtitle}>Coming soon!</Text>
     </View>
   );

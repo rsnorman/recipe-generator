@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { Alert, View } from "react-native";
+import { Alert, View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/app/constants/theme";
 import Header from "@/app/components/home/Header";
@@ -17,19 +17,8 @@ export default function TabsLayout(): React.JSX.Element {
         header: () => <Header onProfilePress={handleProfilePress} />,
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.textSecondary,
-        tabBarStyle: {
-          backgroundColor: COLORS.surface,
-          borderTopColor: COLORS.surfaceSecondary,
-          borderTopWidth: 1,
-          height: 80,
-          paddingBottom: 12,
-          paddingTop: 8,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: "600",
-          marginBottom: 4,
-        },
+        tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: styles.tabBarLabel,
       }}
     >
       <Tabs.Screen
@@ -40,28 +29,15 @@ export default function TabsLayout(): React.JSX.Element {
         }}
       />
       <Tabs.Screen
-        name="add-recipe"
+        name="camera"
         options={{
-          title: "Recipes",
+          title: "Camera",
           tabBarIcon: ({ focused }) => (
             <View
-              style={{
-                width: 70,
-                height: 70,
-                borderRadius: 35,
-                backgroundColor: focused ? COLORS.primary : COLORS.accent,
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: -40,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: 4.65,
-                elevation: 8,
-              }}
+              style={[
+                styles.cameraFab,
+                { backgroundColor: focused ? COLORS.primary : COLORS.accent },
+              ]}
             >
               <Ionicons name="camera" size={32} color={COLORS.surface} />
             </View>
@@ -79,3 +55,35 @@ export default function TabsLayout(): React.JSX.Element {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: COLORS.surface,
+    borderTopColor: COLORS.surfaceSecondary,
+    borderTopWidth: 1,
+    height: 80,
+    paddingBottom: 12,
+    paddingTop: 8,
+  },
+  tabBarLabel: {
+    fontSize: 12,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  cameraFab: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+});

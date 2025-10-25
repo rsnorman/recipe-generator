@@ -32,7 +32,15 @@ describe("HomeScreen", () => {
   });
 
   describe("Component Rendering", () => {
-    it("should render PhotoCTACard component", async () => {
+    it("should show loading indicator initially", () => {
+      (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
+
+      render(<HomeScreen />);
+
+      expect(screen.getByTestId("loading-indicator")).toBeTruthy();
+    });
+
+    it("should render PhotoCTACard component after loading", async () => {
       (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
 
       render(<HomeScreen />);
@@ -42,7 +50,7 @@ describe("HomeScreen", () => {
       });
     });
 
-    it("should render RecentSaucesGrid component", async () => {
+    it("should render RecentSaucesGrid component after loading", async () => {
       (mockDataService.getRecentSauces as jest.Mock).mockResolvedValue([]);
 
       render(<HomeScreen />);

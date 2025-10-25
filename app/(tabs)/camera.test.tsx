@@ -1,25 +1,25 @@
 import React from "react";
 import { render, screen } from "@testing-library/react-native";
-import AddRecipeScreen from "./add-recipe";
+import CameraScreen from "./camera";
 
-describe("AddRecipeScreen", () => {
+describe("CameraScreen", () => {
   it("should render coming soon message", () => {
-    render(<AddRecipeScreen />);
+    render(<CameraScreen />);
 
-    expect(screen.getByText("Add Recipe")).toBeTruthy();
+    expect(screen.getByText("Camera")).toBeTruthy();
     expect(screen.getByText("Coming soon!")).toBeTruthy();
   });
 
   it("should render placeholder icon", () => {
-    render(<AddRecipeScreen />);
+    render(<CameraScreen />);
 
-    expect(screen.getByTestId("add-recipe-icon")).toBeTruthy();
+    expect(screen.getByTestId("camera-icon")).toBeTruthy();
   });
 
   it("should have centered content", () => {
-    render(<AddRecipeScreen />);
+    render(<CameraScreen />);
 
-    const container = screen.getByTestId("add-recipe-container");
+    const container = screen.getByTestId("camera-container");
     expect(container.props.style).toMatchObject(
       expect.objectContaining({
         flex: 1,

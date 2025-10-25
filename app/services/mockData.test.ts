@@ -57,6 +57,31 @@ describe("Mock Data Service", () => {
       // Should take at least 200ms due to mock delay
       expect(endTime - startTime).toBeGreaterThanOrEqual(190);
     });
+
+    it("should return empty array when AsyncStorage throws error", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      (AsyncStorage.getItem as jest.Mock).mockRejectedValue(new Error("Storage error"));
+
+      const sauces = await getRecentSauces();
+
+      expect(sauces).toEqual([]);
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error retrieving sauces from AsyncStorage:",
+        expect.any(Error)
+      );
+      consoleErrorSpy.mockRestore();
+    });
+
+    it("should return empty array when JSON parsing fails", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      (AsyncStorage.getItem as jest.Mock).mockResolvedValue("invalid json");
+
+      const sauces = await getRecentSauces();
+
+      expect(sauces).toEqual([]);
+      expect(consoleErrorSpy).toHaveBeenCalled();
+      consoleErrorSpy.mockRestore();
+    });
   });
 
   describe("addMockSauce", () => {
@@ -123,6 +148,42 @@ describe("Mock Data Service", () => {
 
       expect(endTime - startTime).toBeGreaterThanOrEqual(190);
     });
+
+    it("should throw error when AsyncStorage.setItem fails", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      (AsyncStorage.getItem as jest.Mock).mockResolvedValue(null);
+      (AsyncStorage.setItem as jest.Mock).mockRejectedValue(new Error("Storage full"));
+
+      const newSauce: Sauce = {
+        id: "1",
+        name: "Test",
+        heatLevel: 1,
+        imageUrl: "https://example.com/test.jpg",
+      };
+
+      await expect(addMockSauce(newSauce)).rejects.toThrow("Failed to save sauce data");
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error adding sauce to AsyncStorage:",
+        expect.any(Error)
+      );
+      consoleErrorSpy.mockRestore();
+    });
+
+    it("should throw error when AsyncStorage.getItem fails during add", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      (AsyncStorage.getItem as jest.Mock).mockRejectedValue(new Error("Storage error"));
+
+      const newSauce: Sauce = {
+        id: "1",
+        name: "Test",
+        heatLevel: 1,
+        imageUrl: "https://example.com/test.jpg",
+      };
+
+      await expect(addMockSauce(newSauce)).rejects.toThrow("Failed to save sauce data");
+      expect(consoleErrorSpy).toHaveBeenCalled();
+      consoleErrorSpy.mockRestore();
+    });
   });
 
   describe("clearSauces", () => {
@@ -142,6 +203,18 @@ describe("Mock Data Service", () => {
       const endTime = Date.now();
 
       expect(endTime - startTime).toBeGreaterThanOrEqual(190);
+    });
+
+    it("should throw error when AsyncStorage.removeItem fails", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      (AsyncStorage.removeItem as jest.Mock).mockRejectedValue(new Error("Storage error"));
+
+      await expect(clearSauces()).rejects.toThrow("Failed to clear sauce data");
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error clearing sauces from AsyncStorage:",
+        expect.any(Error)
+      );
+      consoleErrorSpy.mockRestore();
     });
   });
 });

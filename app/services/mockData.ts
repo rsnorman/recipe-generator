@@ -18,39 +18,57 @@ function delay(ms: number): Promise<void> {
 
 /**
  * Retrieves recent sauces from AsyncStorage
- * @returns Promise resolving to array of recent sauces (empty array if none)
+ * @returns Promise resolving to array of recent sauces (empty array if none or on error)
  */
 export async function getRecentSauces(): Promise<Sauce[]> {
   await delay(MOCK_DELAY_MS);
 
-  const storedData = await AsyncStorage.getItem(STORAGE_KEY);
+  try {
+    const storedData = await AsyncStorage.getItem(STORAGE_KEY);
 
-  if (storedData === null) {
+    if (storedData === null) {
+      return [];
+    }
+
+    return JSON.parse(storedData) as Sauce[];
+  } catch (error) {
+    console.error("Error retrieving sauces from AsyncStorage:", error);
     return [];
   }
-
-  return JSON.parse(storedData) as Sauce[];
 }
 
 /**
  * Adds a new sauce to the beginning of the recent sauces list
  * @param sauce - The sauce to add
+ * @throws Error if AsyncStorage operation fails
  */
 export async function addMockSauce(sauce: Sauce): Promise<void> {
   await delay(MOCK_DELAY_MS);
 
-  const existingSauces = await AsyncStorage.getItem(STORAGE_KEY);
-  const sauces: Sauce[] = existingSauces !== null ? JSON.parse(existingSauces) : [];
+  try {
+    const existingSauces = await AsyncStorage.getItem(STORAGE_KEY);
+    const sauces: Sauce[] = existingSauces !== null ? JSON.parse(existingSauces) : [];
 
-  const updatedSauces = [sauce, ...sauces];
+    const updatedSauces = [sauce, ...sauces];
 
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSauces));
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSauces));
+  } catch (error) {
+    console.error("Error adding sauce to AsyncStorage:", error);
+    throw new Error("Failed to save sauce data");
+  }
 }
 
 /**
  * Clears all sauces from AsyncStorage
+ * @throws Error if AsyncStorage operation fails
  */
 export async function clearSauces(): Promise<void> {
   await delay(MOCK_DELAY_MS);
-  await AsyncStorage.removeItem(STORAGE_KEY);
+
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.error("Error clearing sauces from AsyncStorage:", error);
+    throw new Error("Failed to clear sauce data");
+  }
 }
